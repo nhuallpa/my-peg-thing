@@ -113,6 +113,11 @@
   (if-let [jumped (valid-move? board p1 p2)]
     (move-peg (remove-peg board jumped) p1 p2)))
 
+(defn can-move? [board-valid-for-13]
+  (some (comp not-empty (partial valid-moves board-valid-for-13))
+        (map first (filter #(get (second %) :pegged) board-valid-for-13))))
+
+
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]

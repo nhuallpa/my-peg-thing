@@ -148,6 +148,23 @@
             15 {:pegged false, :connections {13 14, 6 10}},
             :rows 5})
 
+(def board-end-game {1  {:pegged false, :connections {6 3, 4 2}},
+                         2  {:pegged false, :connections {9 5, 7 4}},
+                         3  {:pegged false, :connections {10 6, 8 5}},
+                         4  {:pegged false, :connections {13 8, 11 7, 6 5, 1 2}},
+                         5  {:pegged false, :connections {14 9, 12 8}},
+                         6  {:pegged false, :connections {15 10, 13 9, 4 5, 1 3}},
+                         7  {:pegged false, :connections {9 8, 2 4}},
+                         8  {:pegged false, :connections {10 9, 3 5}},
+                         9  {:pegged false, :connections {7 8, 2 5}},
+                         10 {:pegged true, :connections {8 9, 3 6}},
+                         11 {:pegged false, :connections {13 12, 4 7}},
+                         12 {:pegged false, :connections {14 13, 5 8}},
+                         13 {:pegged false, :connections {15 14, 11 12, 6 9, 4 8}},
+                         14 {:pegged false, :connections {12 13, 5 9}},
+                         15 {:pegged false, :connections {13 14, 6 10}},
+                         :rows 5})
+
 (deftest test-valid-moves
   (let [moves (valid-moves board-valid-for-13 13)]
     (is (= moves {15 14, 11 12, 6 9}))))
@@ -163,3 +180,10 @@
       (is (not (pegged? board-moved 5)))
       (is (not (pegged? board-moved 6)))
       (is (pegged? board-moved 4)))))
+
+
+(deftest test-can-move?
+  (testing "test if I can move to continue the game"
+    (is (= (can-move? board-valid-for-13) {6 3}))
+    (is (= (can-move? board-end-game) nil))))
+
